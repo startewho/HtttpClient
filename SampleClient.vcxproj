@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\libcurl.1.0.0\build\native\libcurl.props" Condition="Exists('packages\libcurl.1.0.0\build\native\libcurl.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -140,12 +141,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="HTTPClient.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\curl.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\curlver.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\easy.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\mprintf.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\multi.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\options.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\stdcheaders.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\system.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\typecheck-gcc.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\curl\urlapi.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\zconf.h" />
+    <ClInclude Include="packages\libcurl.1.0.0\installed\x64-windows\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HTTPClient.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\libcurl.1.0.0\build\native\libcurl.targets" Condition="Exists('packages\libcurl.1.0.0\build\native\libcurl.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\libcurl.1.0.0\build\native\libcurl.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libcurl.1.0.0\build\native\libcurl.props'))" />
+    <Error Condition="!Exists('packages\libcurl.1.0.0\build\native\libcurl.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libcurl.1.0.0\build\native\libcurl.targets'))" />
+  </Target>
 </Project>
