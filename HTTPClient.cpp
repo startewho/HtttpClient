@@ -135,7 +135,7 @@ CHTTPClient::~CHTTPClient()
  * @endcode
  */
 const bool CHTTPClient::InitSession(const bool& bHTTPS /* = false */,
-                                    const SettingsFlag& eSettingsFlags /* = ALL_FLAGS */)
+                                    const SettingsFlag& eSettingsFlags)
 {
    if (m_pCurlSession)
    {
@@ -259,7 +259,19 @@ std::string GBKToUTF8(const std::string& strGBK)
  */
 inline void CHTTPClient::CheckURL(const std::string& strURL)
 {
-    //Todo ×öÒ»¼ìÑé
+    std::string strTmp = strURL;
+
+    std::transform(strTmp.begin(), strTmp.end(), strTmp.begin(), ::toupper);
+
+    if (strTmp.compare(0, 7, "HTTP://") == 0)
+        m_bHTTPS = false;
+    else if (strTmp.compare(0, 8, "HTTPS://") == 0)
+        m_bHTTPS = true;
+    else
+    {
+        m_strURL = ((m_bHTTPS) ? "https://" : "http://") + strURL;
+        return;
+    }
     m_strURL = strURL;
  
 }
