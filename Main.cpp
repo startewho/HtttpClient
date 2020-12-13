@@ -2,7 +2,7 @@
 #include "HTTPClient.h"
 using std::string;
 
-void UploadIamge(string host,string cert)
+void UploadIamge(string host,string file)
 {
 	string response;
 	long httpCode = 0;
@@ -20,7 +20,7 @@ void UploadIamge(string host,string cert)
 	Queries.emplace("keyName", "中文Id");
 	Queries.emplace("random", "Id中文");
 
-	UploadInfo.AddFormFile("file", "C:\\Users\\hoolo\\Pictures\\1.jpg");
+	UploadInfo.AddFormFile("file", file);
 
 	client.UploadForm(imageUrl, UploadInfo, Queries, response, httpCode);
 
@@ -29,7 +29,7 @@ void UploadIamge(string host,string cert)
 	std::cout << utf8Response << std::endl;
 }
 
-void UploadProject(string host, string token,string cert)
+void UploadProject(string host, string token,string file)
 {
 	string response;
 	long httpCode = 0;
@@ -51,7 +51,7 @@ void UploadProject(string host, string token,string cert)
 	Queries.emplace("id", "0");
 	Queries.emplace("clientId", "ClientId中文");
 
-	UploadInfo.AddFormFile("file", "C:\\Users\\hoolo\\Pictures\\1.jpg");
+	UploadInfo.AddFormFile("file", file);
 
 	client.UploadForm(imageUrl, UploadInfo, Queries, response, httpCode);
 
@@ -64,8 +64,8 @@ void UploadProject(string host, string token,string cert)
 int main()
 {
 	string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZGZzYXMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIiLCJleHAiOjE2MDc4NTk4MDksImlzcyI6Ii9hcGkvdXNlci9sb2dpbiIsImF1ZCI6Ii9hcGkvdXNlci9sb2dpbiJ9.8nRCOeMAMeitGQJxfltm6y27fZxMIW7T_htQlE7ygFg";
-	UploadIamge("http://localhost:5000/api","");
-	UploadProject("http://localhost:5000/api", token,"");
-	UploadIamge("https://localhost:443/api", ".\\cacert.pem");
-	UploadProject("https://localhost:443/api", token, ".\\cacert.pem");
+	UploadIamge("http://localhost:5000/api","C:\\Users\\hoolo\\Pictures\\1.jpg");
+	UploadProject("http://localhost:5000/api", token,"C:\\Users\\hoolo\\Pictures\\1.jpg");
+	UploadIamge("https://localhost:443/api", "C:\\Users\\hoolo\\Pictures\\1.jpg");
+	UploadProject("https://localhost:443/api", token, "C:\\Users\\hoolo\\Pictures\\1.jpg");
 }
